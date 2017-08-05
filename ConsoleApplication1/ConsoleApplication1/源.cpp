@@ -8,7 +8,7 @@ struct CandyBar {
 	int Calorie_content;
 };
 
- int main() {
+int main() {
 	CandyBar snack = {
 		"Mocha Munch",
 		2.3,
@@ -19,12 +19,16 @@ struct CandyBar {
 	cout << snack.Calorie_content << endl;
 	
 	CandyBar * ptr = new CandyBar;
-	
+	ptr->name = snack.name;
+	ptr->Calorie_content = snack.Calorie_content;
+	ptr->weight = snack.weight;
 	cout << ptr->name << " " << ptr->weight << " " << ptr->Calorie_content << endl;
 	cout << "Please enter the new Bar name" << endl;
 	cin >> ptr->name;
 	cout << ptr->name;
+	cin.get();
+	cin.get();
+	delete ptr;
 
-	delete [] ptr;
 	return 0;
 }
