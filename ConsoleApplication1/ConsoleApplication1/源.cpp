@@ -19,10 +19,10 @@ int main() {
 	cout << snack.Calorie_content << endl;
 	
 	CandyBar * ptr = new CandyBar;
-	ptr->name = snack.name;
-	ptr->Calorie_content = snack.Calorie_content;
-	ptr->weight = snack.weight;
-	cout << ptr->name << " " << ptr->weight << " " << ptr->Calorie_content << endl;
+	
+	*ptr = snack;
+	cout << ptr << endl;
+	cout << ptr->name << &(ptr->name)<<" \n" << ptr->weight <<&(ptr->weight)<< " \n" << ptr->Calorie_content <<&(ptr->Calorie_content)<< endl;
 	cout << "Please enter the new Bar name" << endl;
 	cin >> ptr->name;
 	cout << ptr->name;
