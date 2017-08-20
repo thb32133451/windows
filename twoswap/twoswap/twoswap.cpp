@@ -1,8 +1,6 @@
 #include <iostream>
 #include "struct-job.h"
 
-
-
 int main() {
 	using namespace std;
 	cout.precision(2);
@@ -15,15 +13,17 @@ int main() {
 
 	job sue = { "Susan Yaffee",73000.60,7 };
 	job sidney = { "Sidney Taffee",78060.72,9 };
+
 	cout << "Before job Swapping:\n";
 	show(sue);
 	show(sidney);
+
 	Swap(sue, sidney);
 	cout << "After job Swapping:\n";
 	show(sue);
 	show(sidney);
+	
 	cin.get();
-
 	return 0;
 }
 
