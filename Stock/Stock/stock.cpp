@@ -51,7 +51,7 @@ void Stock::update(double price) {
 	share_val = price;
 	set_tot();
 }
-
+   
 void Stock::show() {
 	using std::cout;
 	using std::ios_base;
