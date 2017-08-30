@@ -1,33 +1,34 @@
 #include <iostream>
 #include <stdlib.h>
-const int LENGTH = 100;
-const int B = 1000;
-void sort(int n[], int length);
+#include <time.h>
+const unsigned long long LENGTH = 100000;
+const unsigned long long A = 0;
+void sort(long long n[], long long length);
 
 int main() {
-	int n[LENGTH];
-	
-	for (int i = 0; i < LENGTH; i++) {
-		n[i] =rand();
-	}
-	for (int show = 0; show<LENGTH; show++) {
-		std::cout << n[show] << std::endl;
+	long long n[LENGTH];
+	clock_t start = clock();
+	srand((unsigned)time(NULL));
+	for (long long i = 0; i < LENGTH; i++) {
+		n[i] = rand();
 	}
 	
 	sort(n, LENGTH);
 
 	std::cout << "And then,sort:" << std::endl;
-	for (int show = 0; show<LENGTH; show++) {
+	for (long long show = 0; show<LENGTH; show++) {
 		std::cout << n[show] << std::endl;
 	}
-	system("pause");
+	clock_t ends = clock();
+	std::cout <<"Running Time : "<<(double)(ends - start)/ CLOCKS_PER_SEC << std::endl;
+	std::cin.get();
 	return 0;
 }
 
-void sort(int n[], int length) {
-	int key;
-	int j;
-	for (int i = 1; i<length; i++) {
+void sort(long long n[], long long length) {
+	long long key;
+	long long j;
+	for (long long i = 1; i<length; i++) {
 		key = n[i];
 
 		j = i - 1;
