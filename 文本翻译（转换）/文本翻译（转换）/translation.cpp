@@ -58,7 +58,7 @@ int main(int argc,char *argv[]) {
 	ifstream input(argv[2]);
 	if (map_file) {
 		if (input) 
-			word_translation(map_file, input);
+			word_translation(map_file, input);         //未检查输入文件内容合法性，程序健壮性差
 		else
 			cerr << "Could not open file: " + string(argv[2]);
 	}
