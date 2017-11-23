@@ -59,6 +59,8 @@ int main() {
 	for (; last_5_words !=str.end(); last_5_words++)
 		cout << *last_5_words << endl;
 
+	//auto last_6_words = count_if(str.begin(), str.end(), [](string &s) {return s.size() > 6; });  //使用count_if标准库算法与lambda表达式以统计size大于6元素的个数
+
 	system("pause");
 	return 0;
 }
