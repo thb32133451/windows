@@ -35,7 +35,7 @@ using namespace std;
 //}
 
 shared_ptr<vector<int>> new_shared_ptr_vector_int();                      // π”√shared_ptr
-shared_ptr<vector<int>> input(vector<int> *vec);
+shared_ptr<vector<int>> input(shared_ptr<vector<int>> vec);
 void print(shared_ptr<vector<int>> vec);
 
 shared_ptr<vector<int>> new_shared_ptr_vector_int() {
@@ -54,8 +54,21 @@ void print(shared_ptr<vector<int>> vec) {
 		cout << i << endl;
 }
 
+void process(shared_ptr<int> ptr);
+void process(shared_ptr<int> ptr) {
+	cout << *ptr << endl;
+}
+
 int main() {
-	print(input(new_shared_ptr_vector_int()));
+	//print(input(new_shared_ptr_vector_int()));
+
+	/*shared_ptr<int> p(new int(42));
+	process(shared_ptr<int>(p));
+	cout << *p << endl;*/
+
+	auto sp = make_shared<int>();
+	auto p = sp.get();
+	
 
 	system("pause");
 	return 0;
