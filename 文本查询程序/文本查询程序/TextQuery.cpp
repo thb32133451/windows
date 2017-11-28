@@ -3,16 +3,17 @@
 #include <fstream>
 #include "StrBlob.h"
 
-QueryResult TextQuery::query(const std::string s) const
+QueryResult TextQuery::query(const std::string &s) const
 {
 	auto result = word_lineSet.find(s);                   //查询结果
+	static std::shared_ptr<std::set<size_type>> no_data(new std::set<size_type>);
 	if (result != word_lineSet.end())
 	{                     //存在单词s
 		QueryResult t_yes(s, input_file, result->second);
 		return t_yes;
 	}
-	else {                                            //若未找到单词s，返回只由s构造的QueryResult，其他成员为空
-		QueryResult t_no(s);
+	else {                                            
+		QueryResult t_no(s, input_file, no_data);
 		return t_no;
 	}
 
@@ -36,7 +37,7 @@ TextQuery::TextQuery(std::ifstream &infile):input_file(new strBlob)             
 	}
 }
 
-std::ostream & print(std::ostream & os, QueryResult & result)
+std::ostream & print(std::ostream & os, const QueryResult & result)
 {
 	if (result.file!=nullptr)                                                   //查找结果不为空
 	{

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _STRBLOB_H
+#define _STRBLOB_H
+
 #include <string>
 #include <iostream>
 #include <memory>
@@ -31,3 +33,5 @@ private:
 	std::string &do_front()const;
 	std::string &do_back()const;
 };
+
+#endif //_STRBLOB_H
