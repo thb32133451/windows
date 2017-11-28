@@ -66,9 +66,6 @@ int main() {
 	process(shared_ptr<int>(p));
 	cout << *p << endl;*/
 
-	auto sp = make_shared<int>();
-	auto p = sp.get();
-	
 
 	system("pause");
 	return 0;
