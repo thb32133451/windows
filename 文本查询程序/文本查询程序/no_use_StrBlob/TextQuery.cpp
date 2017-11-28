@@ -2,16 +2,17 @@
 #include <iostream>
 #include <fstream>
  
-QueryResult TextQuery::query(const std::string s) const
+QueryResult TextQuery::query(const std::string &s) const
 {
 	auto result = word_lineSet.find(s);                   //查询结果
+	static std::shared_ptr<std::set<std::size_t>> no_data(new std::set<std::size_t>);
 	if (result != word_lineSet.end())
 	{                     //存在单词s
  		QueryResult t_yes(s, input_file, result->second);
  		return t_yes;
  	}
  	else {                                            //若未找到单词s，返回只由s构造的QueryResult，其他成员为空
- 		QueryResult t_no(s);
+ 		QueryResult t_no(s,input_file,no_data);
  		return t_no;
  	}
  
@@ -31,18 +32,18 @@ TextQuery::TextQuery(std::ifstream &infile):input_file(new std::vector<std::stri
  				check.reset(new std::set<std::size_t>);
  			check->insert(lineNumber);
  		}
- 		lineNumber;                                      //换行
+ 		++lineNumber;                                      //换行
  	}
 }
  
-std::ostream & print(std::ostream & os, QueryResult & result)
+std::ostream & print(std::ostream & os, const QueryResult & result)
 {
  	if (result.file!=nullptr)                                                   //查找结果不为空
  	{
  		os << result.word << " occurs " << result.line_number->size() << " times:" << std::endl;       //输出出现次数=line_number成员所指set的size（）
  		auto beg_file = result.file->begin();                                                          //智能指针file所指向的vector<string>的首迭代器
- 		for (auto beg = result.line_number->begin(); beg != result.line_number->end(); beg)
- 			os << "(line " << *beg << ") " << *(beg_file  (*beg) - 1) << std::endl;                         //输出单词所在行完整文本
+ 		for (auto beg = result.line_number->begin(); beg != result.line_number->end(); beg++)
+ 			os << "(line " << *beg << ") " << *(beg_file+(*beg) - 1) << std::endl;                         //输出单词所在行完整文本
  	}
  	else                     //未找到对应单词
  		os << "can not find " << result.word << std::endl;
