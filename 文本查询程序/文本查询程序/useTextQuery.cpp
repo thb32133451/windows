@@ -7,8 +7,8 @@ void runQueries(ifstream &infile);
 
 int main(int argc,char *argv[])
 {
-	ifstream infile(argv[1]);
-	/*ifstream infile("test.txt");*/
+	//ifstream infile(argv[1]);
+	ifstream infile("test.txt");
 	runQueries(infile);
 	return 0;
 }
@@ -25,4 +25,5 @@ void runQueries(ifstream & infile)
 			break;
 		print(cout, tq.query(s)) << endl;
 	}
+
 }

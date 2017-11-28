@@ -1,6 +1,7 @@
 #include "TextQuery.h"
 #include <iostream>
 #include <fstream>
+#include "StrBlob.h"
 
 QueryResult TextQuery::query(const std::string s) const
 {
@@ -17,10 +18,10 @@ QueryResult TextQuery::query(const std::string s) const
 
 }
 
-TextQuery::TextQuery(std::ifstream &infile):input_file(new std::vector<std::string>)              //接受一个ifstream的构造函数
+TextQuery::TextQuery(std::ifstream &infile):input_file(new strBlob)              //接受一个ifstream的构造函数
 {
 	std::string Line;                                      //存储行文本
-	std::size_t lineNumber = 1;                            //行号
+	size_type lineNumber = 1;                            //行号
 	while (std::getline(infile, Line)) {                   //getline位于头文件fstream
 		input_file->push_back(Line);                       //将行输入添加到vector<string>中
 		std::stringstream stream(Line);                    //行文本Line绑定到stringstream
@@ -28,7 +29,7 @@ TextQuery::TextQuery(std::ifstream &infile):input_file(new std::vector<std::stri
 		while (stream >> word) {
 			auto &check = word_lineSet[word];         //check是关键字为word的元素对应的shared_ptr<set<size_t>>
 			if (!check)                                  //第一次遇到这个单词时，此指针为空
-				check.reset(new std::set<std::size_t>);
+				check.reset(new std::set<size_type>);
 			check->insert(lineNumber);
 		}
 		++lineNumber;                                      //换行

@@ -118,9 +118,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="StrBlob.h" />
     <ClInclude Include="TextQuery.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="StrBlob.cpp" />
     <ClCompile Include="TextQuery.cpp" />
     <ClCompile Include="useTextQuery.cpp" />
   </ItemGroup>

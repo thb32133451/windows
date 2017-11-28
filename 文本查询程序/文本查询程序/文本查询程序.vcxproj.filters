@@ -18,12 +18,18 @@
     <ClInclude Include="TextQuery.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StrBlob.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="useTextQuery.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TextQuery.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StrBlob.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
