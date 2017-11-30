@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-
-
+#include <vector>
+#include <algorithm>
 
 class HasPtr {
 public:
@@ -10,8 +10,10 @@ public:
 	HasPtr(const HasPtr & rhs) :ps(rhs.ps), i(rhs.i), use(rhs.use) { ++*use; std::cout << "¿½±´¹¹Ôì" << std::endl;}
 	//¿½±´¸´ÖÆÔËËã·û
 	HasPtr& operator=(const HasPtr &rhs);       
+	bool operator<(const HasPtr &rhs);
 	~HasPtr();
 	friend void swap(HasPtr &lhs, HasPtr &rhs);    //ÎªÁË·ÃÎÊÀàÄÚ³ÉÔ±£¬¶¨ÒåÎªfriend
+
 private:
 	std::string *ps;
 	int i;
@@ -32,6 +34,12 @@ HasPtr& HasPtr::operator=(const HasPtr &rhs)     //¿½±´¸³ÖµÔËËã·û£¬µÝÔöÓÒ²à¶ÔÏóÒ
 	return *this;      //·µ»Ø´Ë¶ÔÏó
 }
 
+bool HasPtr::operator<(const HasPtr & rhs)
+{
+	return i < rhs.i;
+	// TODO: ÔÚ´Ë´¦²åÈë return Óï¾ä
+}
+
 HasPtr::~HasPtr()  //Îö¹¹º¯Êý
 {
 	if (--*use == 0)   //Îö¹¹µÄÊ±ºòµÝ¼õÒýÓÃ¼ÆÊý£¬Èç¹ûÎª0
@@ -50,15 +58,23 @@ inline void swap(HasPtr &lhs, HasPtr &rhs)    //¶¨ÒåswapµÄÄ¿µÄÊÇÓÅ»¯´úÂë£¬Òò´Ë¶¨
 	swap(lhs.i, rhs.i);     //½»»»int³ÉÔ±
 }
 
-int main()
-{
-	{
-		std::string s = "want";
-		std::string k = "swap";
-		HasPtr hs(s), hk(k);
-		swap(hs, hk);
-		HasPtr* ps = new HasPtr;
-	}
-	system("pause");
-	return 0;
-}
+
+//int main()
+//{
+//	{
+//		std::string s = "want";
+//		std::string k = "swap";
+//		HasPtr hs(s), hk(k);
+//		swap(hs, hk);
+//		HasPtr *ps = new HasPtr(hs);
+//		
+//
+//		std::vector<HasPtr> vc;
+//		vc.push_back(hs);
+//		vc.push_back(hk);
+//		vc.push_back(*ps);
+//		std::sort(vc.begin(), vc.end());
+//	}
+//	system("pause");
+//	return 0;
+//}

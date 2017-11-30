@@ -19,10 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8A828D5E-5C90-4DEE-8333-83B76E6976A0}</ProjectGuid>
-    <RootNamespace>引用计数</RootNamespace>
+    <ProjectGuid>{3D6D5711-0932-4D4B-9964-7FCA9481EC24}</ProjectGuid>
+    <RootNamespace>动态内存管理类（简化版本vectorstring的实现）</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>拷贝控制</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -119,13 +119,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Folder.cpp" />
-    <ClCompile Include="HasPtr.cpp" />
-    <ClCompile Include="Message.cpp" />
+    <ClInclude Include="StrVec.h" />
+    <ClInclude Include="TextQuery.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Folder.h" />
-    <ClInclude Include="Message.h" />
+    <ClCompile Include="StrVec.cpp" />
+    <ClCompile Include="TextQuery.cpp" />
+    <ClCompile Include="useTextQuery.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
