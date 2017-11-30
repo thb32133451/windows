@@ -29,6 +29,7 @@ public:
 
 private:
 	static std::allocator<std::string> alloc;    //用于分配元素的静态allocator类成员
+	//静态成员必须声明到对应.cpp文件中，否则会引起为定义的引用
 	//被添加元素的函数所使用
 	void check_n_alloc()
 	{

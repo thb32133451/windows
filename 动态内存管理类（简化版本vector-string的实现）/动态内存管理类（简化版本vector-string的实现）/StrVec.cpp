@@ -1,5 +1,7 @@
 #include "StrVec.h"
 
+std::allocator<std::string> StrVec::alloc;          //类的静态成员必须实际定义在cpp文件中，否则会发生未定义的引用
+
 StrVec::StrVec(const StrVec &hs)
 {
 	auto newdata = alloc_n_copy(hs.begin(), hs.end());   //分配空间并拷贝
