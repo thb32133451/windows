@@ -86,6 +86,18 @@ void StrVec::resize(size_t n, const std::string & s)   //双参数版本
 	}
 }
 
+StrVec::StrVec(std::initializer_list<std::string> slst)       //接受initializer<string>作为参数的构造函数
+{
+	//initializer_list<>的元素永远都是常量值，因此不能直接使用他的空间，必须自己分配
+	//分配空间并拷贝
+	auto newdata = alloc_n_copy(slst.begin(), slst.end());
+	//释放现有空间
+	free();
+	//更新数据结构
+	first = newdata.first;
+	first_free = last = newdata.second;
+}
+
 std::pair<std::string*, std::string*> StrVec::alloc_n_copy(const std::string *beg, const std::string *end)
 //分配足够的内存以保存给定范围中的元素，并将这些元素拷贝到分配的空间中
 //返回的pair的两个指针分别指向分配空间开始的位置和拷贝的尾后的位置
@@ -96,12 +108,20 @@ std::pair<std::string*, std::string*> StrVec::alloc_n_copy(const std::string *be
 
 void StrVec::free()
 {
+	/*
 	if (first) {          //检查first是否为nullptr，如果是，不执行下面的函数体
 		//逆序销旧元素
 		for (auto des = first_free - 1; des != first; --des) {
 			alloc.destroy(des);     
 		}
 		//释放内存
+		alloc.deallocate(first, last - first);
+	}
+	*/
+
+	//使用for_each()和lambda表达式,语义更加明显
+	if (first) {
+		std::for_each(first, first_free, [this](std::string &rhs) {alloc.destroy(&rhs); });
 		alloc.deallocate(first, last - first);
 	}
 }

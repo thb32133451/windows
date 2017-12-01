@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <memory>   //allocator定义所在头文件
 #include <utility>  //std::move标准库函数所在头文件
 
@@ -26,7 +27,8 @@ public:
 	void resize(size_t &n);                                  //调整大小
 	void resize(size_t n, const std::string &s);             //resize()的另一个版本
 	//标准库采用重载resize()defangfa ,而不是定义void resize(size_t n, const std::string &s = std::string())
-
+	//接受initializer<string>作为参数的构造函数
+	StrVec(std::initializer_list<std::string> slst);
 private:
 	static std::allocator<std::string> alloc;    //用于分配元素的静态allocator类成员
 	//静态成员必须声明到对应.cpp文件中，否则会引起为定义的引用
@@ -43,6 +45,5 @@ private:
 	std::string *first_free;        //指向数组第一个空闲元素
 	std::string *last;               //指向数组第一个尾后元素
 };
-
 
 #endif // !_STRVEC_H
