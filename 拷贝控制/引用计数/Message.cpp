@@ -37,6 +37,23 @@ void Message::remove(Folder &rmv)
 	rmv.rmvMsg(this);
 }
 
+Message::Message(Message && msg):info(std::move(msg.info))       //使用move以移动info
+{
+	move_folders(&msg);     //移动folders并更新Folder指针
+}
+
+Message & Message::operator=(Message && rhs)
+{
+	if (this != &rhs)          //检查自赋值
+	{
+		remove_from_Folders();
+		info = std::move(rhs.info);      //移动赋值info
+		move_folders(&rhs);              //移动赋值folders并更新包含本Message的Folder
+	}
+	return *this;
+	// TODO: 在此处插入 return 语句
+}
+
 void Message::add_to_Folders(const Message & hs)
 {
 	for (auto f : hs.folders)        //对每个包含hs的Folder
@@ -47,6 +64,17 @@ void Message::remove_from_Folders()           //将本对象从folders内指针指向的Fol
 {
 	for (auto f : folders)
 		f->rmvMsg(this);
+}
+
+void Message::move_folders(Message * msg)
+{
+	folders = std::move(msg->folders);       //使用set的移动赋值运算符
+	for (auto i : folders) {                 //对每个folder
+		i->rmvMsg(msg);                      //删除旧Message
+		//由于向set添加成员可能会分配内存，意味着可能会抛出bad_alloc异常，因此本函数不能使用noexpect
+		i->addMsg(this);                     //添加本Message
+	}
+	msg->folders.clear();                    //确保销毁msg是无害的
 }
 
 void swap(Message & lhs, Message & rhs)  //自定义的swap，但需要管理指向被交换Message的指针

@@ -26,9 +26,13 @@ public:
 	void reserve(size_t &n);        //分配至少能容纳n个元素的内存空间
 	void resize(size_t &n);                                  //调整大小
 	void resize(size_t n, const std::string &s);             //resize()的另一个版本
-	//标准库采用重载resize()defangfa ,而不是定义void resize(size_t n, const std::string &s = std::string())
+	//标准库采用重载resize()的方法 ,而不是定义void resize(size_t n, const std::string &s = std::string())
 	//接受initializer<string>作为参数的构造函数
 	StrVec(std::initializer_list<std::string> slst);
+
+	//移动构造函数与移动赋值运算符
+	StrVec(StrVec &&s) noexcept;   //noexpect表示不抛出任何异常
+	StrVec& operator=(StrVec &&s) noexcept;
 private:
 	static std::allocator<std::string> alloc;    //用于分配元素的静态allocator类成员
 	//静态成员必须声明到对应.cpp文件中，否则会引起为定义的引用

@@ -98,6 +98,29 @@ StrVec::StrVec(std::initializer_list<std::string> slst)       //接受initializer<
 	first_free = last = newdata.second;
 }
 
+StrVec::StrVec(StrVec && s)noexcept     //noexpect声明通知标准库此函数不抛出任何异常
+	//成员初始化，接管s中的资源
+	:first(s.first),first_free(s.first_free),last(s.last)
+{
+	//令s进入这样的状态：对它运行析构函数是安全的
+	s.first = s.first_free = s.last = nullptr;
+}
+
+StrVec & StrVec::operator=(StrVec && rhs) noexcept
+{
+	if (this != &rhs)       //防止自赋值
+	{
+		free();
+		first = rhs.first;
+		first_free = rhs.first_free;
+		last = rhs.last;
+		//将rhs至于不可用状态
+		rhs.first = rhs.first_free = rhs.last = nullptr;
+	}
+	return *this;
+	// TODO: 在此处插入 return 语句
+}
+
 std::pair<std::string*, std::string*> StrVec::alloc_n_copy(const std::string *beg, const std::string *end)
 //分配足够的内存以保存给定范围中的元素，并将这些元素拷贝到分配的空间中
 //返回的pair的两个指针分别指向分配空间开始的位置和拷贝的尾后的位置
