@@ -1,16 +1,31 @@
 #include <iostream>
 #include <fstream>
 #include "TextQuery.h"
+#include "Query.h"
 using namespace std;
 
 void runQueries(ifstream &infile);
 
 int main(int argc,char *argv[])
 {
-	//ifstream infile(argv[1]);
+	/*ifstream infile(argv[1]);
 	ifstream infile("test.txt");
 	runQueries(infile);
+	return 0;*/
+
+
+	ifstream infile("test.txt");
+	TextQuery tq(infile);
+	Query q = Query("fiery") & Query("bird") | Query("wind");
+	cout << q << q.eval(tq) << endl;
+
+	cin.get();
 	return 0;
+
+
+
+
+
 }
 
 void runQueries(ifstream & infile)
@@ -23,7 +38,6 @@ void runQueries(ifstream & infile)
 		string s;
 		if (!(cin >> s) || s == "q")
 			break;
-		print(cout, tq.query(s)) << endl;
+		cout << tq.query(s) << endl;
 	}
-
 }

@@ -1,11 +1,8 @@
 #ifndef _TEXTQUERY_H
 #define _TEXTQUERY_H
 
-#include <vector>
-#include <string>
 #include <map>
 #include <set>
-#include <memory>
 #include <sstream>
 #include "StrBlob.h"
 using size_type = std::vector<std::string>::size_type;
@@ -13,11 +10,16 @@ using size_type = std::vector<std::string>::size_type;
 class QueryResult {                                     //保存TextQuery.query()的查询结果
 public:
 	QueryResult(std::string s, std::shared_ptr<strBlob> svec, std::shared_ptr<std::set<size_type>> sset) :word(s), file(svec), line_number(sset) {}      //找到指定string时的构造函数
-	friend std::ostream& print(std::ostream &os, const QueryResult &result);              //打印查询结果的友元函数
+	friend std::ostream& operator<<(std::ostream &os, const QueryResult &result);              //打印查询结果的友元函数
 
-	std::set<size_type>::iterator begin() { return line_number->begin(); }         //获取指定查询返回的行号的set的首迭代器
-	std::set<size_type>::iterator end() { return line_number->end(); }             //获取指定查询返回的行号的set的尾后迭代器
-	std::shared_ptr<strBlob> get_file()const { return file; }                     //获取保存的输入文件
+	std::set<size_type>::const_iterator begin() const { return line_number->cbegin(); }
+	std::set<size_type>::const_iterator end() const { return line_number->cend(); }
+	const std::shared_ptr<strBlob> get_file() const { return file; }
+
+	std::set<size_type>::iterator begin() { return line_number->begin(); }
+	std::set<size_type>::iterator end() { return line_number->end(); }
+	std::shared_ptr<strBlob> get_file() { return file; }
+
 private:
 	std::string word;                                   //要查询的单词
 	std::shared_ptr<strBlob> file;     //输入的文件

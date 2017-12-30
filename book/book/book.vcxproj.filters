@@ -15,33 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextQuery.h">
+    <ClInclude Include="Quote.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="StrBlob.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Query.h">
+    <ClInclude Include="basket.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="useTextQuery.cpp">
+    <ClCompile Include="Quote.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TextQuery.cpp">
+    <ClCompile Include="use.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="StrBlob.cpp">
+    <ClCompile Include="basket.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Query.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="test.txt">
-      <Filter>资源文件</Filter>
-    </Text>
   </ItemGroup>
 </Project>
