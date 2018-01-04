@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 #include <sstream>
+#include <iterator>
 #include "StrBlob.h"
 using size_type = std::vector<std::string>::size_type;
 

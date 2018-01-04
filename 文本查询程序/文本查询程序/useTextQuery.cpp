@@ -8,8 +8,8 @@ void runQueries(ifstream &infile);
 
 int main(int argc,char *argv[])
 {
-	/*ifstream infile(argv[1]);
-	ifstream infile("test.txt");
+	/*ifstream infile(argv[1]);*/
+	/*ifstream infile("test.txt");
 	runQueries(infile);
 	return 0;*/
 

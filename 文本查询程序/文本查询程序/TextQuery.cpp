@@ -17,21 +17,48 @@ QueryResult TextQuery::query(const std::string &s) const
 
 }
 
-TextQuery::TextQuery(std::ifstream &infile):input_file(new strBlob)              //接受一个ifstream的构造函数
+//TextQuery::TextQuery(std::ifstream &infile):input_file(new strBlob)              //接受一个ifstream的构造函数
+//{
+//	std::string Line;                                      //存储行文本
+//	size_type lineNumber = 1;                              //行号
+//	while (std::getline(infile, Line)) {                   //getline位于头文件fstream
+//		input_file->push_back(Line);                       //将行输入添加到vector<string>中
+//		std::stringstream stream(Line);                    //行文本Line绑定到stringstream
+//		std::string word;                                  //从stream读取的单词
+//		while (stream >> word) {
+//			auto &check = word_lineSet[word];         //check是关键字为word的元素对应的shared_ptr<set<size_t>>，check必须是引用
+//			if (!check)                                  //第一次遇到这个单词时，此指针为空
+//				check.reset(new std::set<size_type>);
+//			check->insert(lineNumber);
+//		}
+//		++lineNumber;                                      //换行
+//	}
+//}
+
+
+TextQuery::TextQuery(std::ifstream &infile) :input_file(new strBlob)              //建立以句子代替句为查询单位的版本
 {
-	std::string Line;                                      //存储行文本
-	size_type lineNumber = 1;                              //行号
-	while (std::getline(infile, Line)) {                   //getline位于头文件fstream
-		input_file->push_back(Line);                       //将行输入添加到vector<string>中
-		std::stringstream stream(Line);                    //行文本Line绑定到stringstream
-		std::string word;                                  //从stream读取的单词
-		while (stream >> word) {
-			auto &check = word_lineSet[word];         //check是关键字为word的元素对应的shared_ptr<set<size_t>>，check必须是引用
-			if (!check)                                  //第一次遇到这个单词时，此指针为空
-				check.reset(new std::set<size_type>);
-			check->insert(lineNumber);
+	std::string sentence;                                      //存储句文本
+	size_type sentenceNumber = 1;                              //句的编号
+	std::istream_iterator<char> str_it(infile);
+	std::istream_iterator<char> str_end;
+	auto it = str_it;
+	while (str_it!=str_end) {                
+		sentence.push_back(*str_it++);
+		if (*(sentence.cend() - 1) == char('.')) {
+			input_file->push_back(sentence);                       //将句输入添加到vector<string>中
+
+			std::stringstream stream(sentence);                    //句文本sentence绑定到stringstream
+			std::string word;                                  //从stream读取的单词
+			while (stream >> word) {
+				auto &check = word_lineSet[word];         //check是关键字为word的元素对应的shared_ptr<set<size_t>>，check必须是引用
+				if (!check)                                  //第一次遇到这个单词时，此指针为空
+					check.reset(new std::set<size_type>);
+				check->insert(sentenceNumber);
+			}
+			sentence=std::string();
+			++sentenceNumber;                                      //换句
 		}
-		++lineNumber;                                      //换行
 	}
 }
 
